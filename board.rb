@@ -1,18 +1,18 @@
 class Board
-  DEFAULT_NUMBER_OF_rows = 7
-  DEFAULT_NUMBER_OF_COLUMNS = 8
+  DEFAULT_NUMBER_OF_ROWS = 6
+  DEFAULT_NUMBER_OF_COLUMNS = 7
 
-  attr_reader :board, :number_of_columns, :number_of_rows
+  attr_reader :number_of_columns, :number_of_rows
 
-  def initialize(number_of_rows: DEFAULT_NUMBER_OF_rows, number_of_columns: DEFAULT_NUMBER_OF_COLUMNS)
+  def initialize(number_of_rows: DEFAULT_NUMBER_OF_ROWS, number_of_columns: DEFAULT_NUMBER_OF_COLUMNS)
     @number_of_rows = number_of_rows
     @number_of_columns = number_of_columns
-    @board = []
+    @game_board = []
 
     number_of_rows.times do |i|
       line = []
       number_of_columns.times { |j| line << 0 }
-      board << line
+      game_board << line
     end
   end
 
@@ -21,8 +21,8 @@ class Board
     i = number_of_rows - 1
 
     while !placed && i >= 0 do
-      if board[i][column] == 0
-        board[i][column] = player_id
+      if game_board[i][column] == 0
+        game_board[i][column] = player_id
         placed = true
       end
 
@@ -33,6 +33,14 @@ class Board
   end
 
   def [](i)
-    @board[i]
+    @game_board[i]
   end
+
+  def inspect
+    @game_board.freeze
+  end
+
+  private
+
+  attr_reader :game_board
 end
