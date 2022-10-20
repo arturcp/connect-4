@@ -6,7 +6,7 @@ require 'tty-prompt'
 
 prompt = TTY::Prompt.new
 
-board = Board.new(number_of_rows: 4, number_of_columns: 5)
+board = Board.new(number_of_rows: 4, number_of_columns: 15)
 player1 = Player.new(1, :yellow)
 player2 = Player.new(2, :red)
 

@@ -12,13 +12,8 @@ class Game
   end
 
   def show
-    board.number_of_rows.times do |i|
-      board.number_of_columns.times do |j|
-        print "#{board_position(i, j)} "
-      end
-
-      puts ""
-    end;nil
+    show_header
+    show_tokens
   end
 
   private
@@ -39,5 +34,27 @@ class Game
     return player2 if id == player2.id
 
     nil
+  end
+
+  def show_header
+    line_length = 0
+    board.number_of_columns.times do |j|
+      index = j + 1
+      header = "#{index < 10 ? " " : ""}#{index} "
+      line_length += header.length
+      print header
+    end
+    puts ""
+    puts "-" * line_length
+  end
+
+  def show_tokens
+    board.number_of_rows.times do |i|
+      board.number_of_columns.times do |j|
+        print " #{board_position(i, j)} "
+      end
+
+      puts ""
+    end;nil
   end
 end
