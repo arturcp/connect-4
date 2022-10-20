@@ -32,13 +32,7 @@ class Board
     placed
   end
 
-  def show
-    number_of_rows.times do |i|
-      number_of_columns.times do |j|
-        print "#{@board[i][j]} "
-      end
-
-      puts ''
-    end;nil
+  def [](i)
+    @board[i]
   end
 end
