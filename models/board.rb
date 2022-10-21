@@ -16,7 +16,7 @@ class Board
     end
   end
 
-  def add(player_id, column)
+  def add_token(player_id, column)
     placed = false
     i = number_of_rows - 1
 

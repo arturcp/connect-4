@@ -1,6 +1,6 @@
-require_relative 'board.rb'
-require_relative 'game.rb'
-require_relative 'player.rb'
+require_relative './models/board.rb'
+require_relative './models/game.rb'
+require_relative './models/player.rb'
 
 require 'tty-prompt'
 
@@ -14,7 +14,7 @@ game = Game.new(board: board, player1: player1, player2: player2)
 
 puts game.show
 
-game.board.add(player1.id, 3)
+game.board.add_token(player1.id, 3)
 
 puts game.show
 
