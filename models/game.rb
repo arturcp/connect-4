@@ -5,16 +5,23 @@ require 'pastel'
 require_relative './board.rb'
 
 class Game
-  attr_reader :player1, :player2
+  attr_reader :player1, :player2, :winner
 
   def initialize(board: Board.new, player1:, player2:)
     @board = board
     @player1 = player1
     @player2 = player2
+    @over = false
   end
 
   def add_token(player, column)
-    board.add_token(player.id, column)
+    return false if winner
+
+    token = board.add_token(player.id, column)
+
+    check_if_there_is_a_winner(token, player) if token[:placed]
+
+    token[:placed]
   end
 
   def show
@@ -31,6 +38,13 @@ class Game
     player = player_by_id(player_id)
     color = player&.color || :white
     pastel.send(color.to_sym, "0")
+  end
+
+  def check_if_there_is_a_winner(token, player)
+    @winner = player if winner?(board.row(token[:row]), player) ||
+      winner?(board.column(token[:column]), player) ||
+      winner?(board.primary_diagonal(token[:row], token[:column]), player) ||
+      winner?(board.secondary_diagonal(token[:row], token[:column]), player)
   end
 
   def pastel
@@ -60,5 +74,24 @@ class Game
     board.show do |i, j, token|
       " #{board_position(i, j, token)} "
     end
+  end
+
+  def winner?(list, player)
+    index = 0
+    counter = 0
+    game_over = false
+
+    while !game_over && index < list.length  do
+      if list[index] == player.id
+        counter += 1
+        game_over = true if counter == 4
+      else
+        counter = 0
+      end
+
+      index += 1
+    end
+
+    game_over
   end
 end

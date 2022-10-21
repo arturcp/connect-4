@@ -24,12 +24,18 @@ class Board
       if game_board[i][column] == 0
         game_board[i][column] = player_id
         placed = true
+      else
+        i -= 1
       end
-
-      i -= 1
     end
 
-    placed
+    result = { placed: placed }
+
+    if placed
+      result.merge!({ row: i, column: column })
+    end
+
+    result
   end
 
   def column(j)

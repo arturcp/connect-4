@@ -21,7 +21,7 @@ RSpec.describe Board, "#add_token" do
   end
 
   it "returns true when the token was placed" do
-    expect(board.add_token(player1_id, 0)).to eq(true)
+    expect(board.add_token(player1_id, 0)).to eq({ placed: true, row: 1, column: 0 })
   end
 
   it "returns false when the token was not placed" do
@@ -30,10 +30,10 @@ RSpec.describe Board, "#add_token" do
       [1, 2]
     ])
 
-    expect(board.add_token(player1_id, 0)).to eq(false)
+    expect(board.add_token(player1_id, 0)).to eq({ placed: false })
   end
 
   it "returns false when position is invalid" do
-    expect(board.add_token(player1_id, 50)).to eq(false)
+    expect(board.add_token(player1_id, 50)).to eq({ placed: false })
   end
 end
