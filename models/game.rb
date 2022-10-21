@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'pastel'
+require "pastel"
 
-require_relative './board.rb'
+require_relative "./board.rb"
 
 class Game
   attr_reader :player1, :player2, :winner

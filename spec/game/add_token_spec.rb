@@ -4,7 +4,7 @@ require_relative "../../models/board.rb"
 require_relative "../../models/game.rb"
 require_relative "../../models/player.rb"
 
-require 'byebug'
+require "byebug"
 
 RSpec.describe Game, "#add_token" do
   subject(:game) { described_class.new(board: board, player1: player1, player2: player2) }
