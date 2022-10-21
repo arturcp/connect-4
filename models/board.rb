@@ -70,12 +70,14 @@ class Board
   #   16, [17],   18, 19, 20
   #   21,   22, [23], 24, 25
   #
-  # The result is comprised of the elements (2, 0), (3, 1) and (4, 2). Notice that the initial element was (3, 1) and
+  # The result is comprised of the elements (2, 0), (3, 1), and (4, 2). Notice that the initial element was (3, 1) and
   # the difference j - i was 1 - 3 = -2. All elements from the resulting list contains the same difference:
   #
   # * 0 - 2 = -2
   # * 1 - 3 = -2
   # * 2 - 4 = -2
+  #
+  # You can think of a primary diagonal as the decrescent diagonal that contains the starting element.
   def primary_diagonal(row, column)
     return [] if row < 0 || row >= number_of_rows || column < 0 || column >= number_of_columns
 
@@ -101,7 +103,55 @@ class Board
     game_board[i] || []
   end
 
+  # Given a starting element e(r, c) from the matrix m, a secondary diagonal will be a list of consecutive elments a(i,j)
+  # where the sum `i + j` is exactly the same as the `r + c` from the element e.
+  #
+  # Example:
+  #
+  #  1,  2,  3,  4,  5
+  #  6,  7,  8,  9, 10
+  # 11, 12, 13, 14, 15
+  # 16, 17, 18, 19, 20
+  # 21, 22, 23, 24, 25
+  #
+  # Taking as a starting point the element a(3, 1) = 17, the secondary diagonal will be [21, 17, 13, 9, 5]. Here is a
+  # visual representation:
+  #
+  #    1,    2,   3,    4,  [5]
+  #    6,    7,   8,  [9],   10
+  #   11,   12, [13],  14,   15
+  #   16, [17],  18,   19,   20
+  # [21],   22,  23,   24,   25
+  #
+  # The result is comprised of the elements (4, 0), (3, 1), (2, 2), (1, 3), and (0, 4). Notice that the initial element
+  # was (3, 1) and the sum i + j was 3 + 1 = 4. All elements from the resulting list contains the same sum:
+  #
+  # * 4 + 0 = 4
+  # * 3 + 1 = 4
+  # * 2 + 2 = 4
+  # * 1 + 3 = 4
+  # * 0 + 4 = 4
+  #
+  # You can think of a secondary diagonal as the crescent diagonal that contains the starting element.
   def secondary_diagonal(row, column)
+    return [] if row < 0 || row >= number_of_rows || column < 0 || column >= number_of_columns
+
+    current_row = row
+    current_column = column
+
+    while current_row < number_of_rows - 1 && current_column > 0 do
+      current_row += 1
+      current_column -= 1
+    end
+
+    result = []
+    while current_row >= 0 && current_column < number_of_columns do
+      result << game_board[current_row][current_column]
+      current_row -= 1
+      current_column += 1
+    end
+
+    result
   end
 
   def show
