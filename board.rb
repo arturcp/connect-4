@@ -32,6 +32,28 @@ class Board
     placed
   end
 
+  def column(j)
+    game_board.map { |row| row[j] }.compact
+  end
+
+  def inspect
+    @game_board.freeze
+  end
+
+  def overwrite_game_board(game_board)
+    return false unless valid_game_board?(game_board)
+
+    @game_board = game_board
+    @number_of_rows = game_board.length
+    @number_of_columns = game_board[0].length
+
+    true
+  end
+
+  def row(i)
+    game_board[i] || []
+  end
+
   def show
     number_of_rows.times do |i|
       number_of_columns.times do |j|
@@ -42,11 +64,11 @@ class Board
     end;nil
   end
 
-  def inspect
-    @game_board.freeze
-  end
-
   private
 
   attr_reader :game_board
+
+  def valid_game_board?(game_board)
+    game_board && game_board.is_a?(Array) && game_board.length > 0 && game_board[0].length > 0
+  end
 end
