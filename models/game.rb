@@ -2,13 +2,19 @@
 
 require 'pastel'
 
-class Game
-  attr_reader :board, :player1, :player2, :players
+require_relative './board.rb'
 
-  def initialize(board:, player1:, player2:)
+class Game
+  attr_reader :player1, :player2
+
+  def initialize(board: Board.new, player1:, player2:)
     @board = board
     @player1 = player1
     @player2 = player2
+  end
+
+  def add_token(player, column)
+    board.add_token(player.id, column)
   end
 
   def show
@@ -17,6 +23,8 @@ class Game
   end
 
   private
+
+  attr_reader :board
 
   def board_position(row, column, token)
     player_id = token
