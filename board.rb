@@ -32,8 +32,14 @@ class Board
     placed
   end
 
-  def [](i)
-    @game_board[i]
+  def show
+    number_of_rows.times do |i|
+      number_of_columns.times do |j|
+        print yield(i, j, game_board[i][j].freeze)
+      end
+
+      puts ""
+    end;nil
   end
 
   def inspect

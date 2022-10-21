@@ -18,8 +18,8 @@ class Game
 
   private
 
-  def board_position(row, column)
-    player_id = board[row][column]
+  def board_position(row, column, token)
+    player_id = token
     player = player_by_id(player_id)
     color = player&.color || :white
     pastel.send(color.to_sym, "0")
@@ -49,12 +49,8 @@ class Game
   end
 
   def show_tokens
-    board.number_of_rows.times do |i|
-      board.number_of_columns.times do |j|
-        print " #{board_position(i, j)} "
-      end
-
-      puts ""
-    end;nil
+    board.show do |i, j, token|
+      " #{board_position(i, j, token)} "
+    end
   end
 end

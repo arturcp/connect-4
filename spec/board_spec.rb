@@ -33,7 +33,8 @@ RSpec.describe Board do
     before { board.add(1, 3) }
 
     it "access the row of the game board" do
-      expect(board[5][3]).to eq(1)
+      game_board = board.inspect
+      expect(game_board[5][3]).to eq(1)
     end
   end
 
